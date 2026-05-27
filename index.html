@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoho Classes — Made for Bharat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --indigo: #4f46e5;
+    --indigo-dark: #3730a3;
+    --indigo-light: #6366f1;
+    --indigo-50: #eef2ff;
+    --indigo-100: #e0e7ff;
+    --indigo-200: #c7d2fe;
+    --indigo-600: #4f46e5;
+    --bg: #ffffff;
+    --bg2: #f8f8ff;
+    --bg3: #f1f0fe;
+    --surface: rgba(79,70,229,0.06);
+    --surface-hover: rgba(79,70,229,0.1);
+    --border: rgba(79,70,229,0.14);
+    --border-hover: rgba(79,70,229,0.32);
+    --border-light: #e8e7fb;
+    --text: #1a1740;
+    --text-muted: #5a5880;
+    --text-dim: #9896b8;
+    --white: #ffffff;
+    --green: #059669;
+    --green-soft: rgba(5,150,105,0.07);
+    --green-border: rgba(5,150,105,0.2);
+    --green-text: #065f46;
+    --green-label: #047857;
+    --red-soft: rgba(220,38,38,0.06);
+    --red-border: rgba(220,38,38,0.18);
+    --red-text: #991b1b;
+    --red-label: #b91c1c;
+    --shadow-sm: 0 1px 3px rgba(79,70,229,0.06), 0 1px 2px rgba(79,70,229,0.04);
+    --shadow-md: 0 4px 16px rgba(79,70,229,0.08), 0 2px 6px rgba(79,70,229,0.05);
+    --shadow-lg: 0 12px 40px rgba(79,70,229,0.12), 0 4px 12px rgba(79,70,229,0.06);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6%; height: 64px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-icon { width: 32px; height: 32px; background: var(--indigo); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .nav-logo-text { font-size: 1rem; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .nav-logo-text span { color: var(--indigo); }
+  .nav-center { display: flex; gap: 32px; }
+  .nav-link { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-link:hover { color: var(--indigo); }
+  .nav-cta { background: var(--indigo); color: #fff; padding: 9px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: all 0.2s; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(79,70,229,0.25); }
+  .nav-cta:hover { background: var(--indigo-dark); transform: translateY(-1px); }
+  @media(max-width:768px){ .nav-center{display:none} }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 120px 6% 80px;
+    position: relative; text-align: center; overflow: hidden;
+    background: linear-gradient(180deg, #fafafe 0%, #ffffff 100%);
+  }
+  /* subtle radial indigo glow */
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 900px 600px at 50% 10%, rgba(79,70,229,0.06) 0%, transparent 70%);
+  }
+  /* dot grid */
+  .hero::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(79,70,229,0.1) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+  }
+  .hero-badge {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--indigo-50); border: 1px solid var(--indigo-200);
+    color: var(--indigo); font-size: 0.78rem; font-weight: 600;
+    padding: 6px 14px; border-radius: 100px; letter-spacing: 0.03em;
+    margin-bottom: 28px; animation: fadeUp 0.5s ease both;
+  }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(5,150,105,0.2); animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(5,150,105,0.2)} 50%{box-shadow:0 0 0 7px rgba(5,150,105,0.04)} }
+  .hero h1 {
+    position: relative; z-index: 1;
+    font-size: clamp(2.5rem, 5.5vw, 4.8rem); font-weight: 800;
+    line-height: 1.08; letter-spacing: -0.035em; max-width: 820px;
+    color: var(--text); animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 .highlight {
+    background: linear-gradient(135deg, var(--indigo) 0%, #6366f1 60%, #818cf8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    position: relative; z-index: 1;
+    font-size: 1.1rem; color: var(--text-muted); max-width: 560px;
+    line-height: 1.75; margin: 24px auto 40px; font-weight: 400;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions { position: relative; z-index: 1; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.6s 0.3s ease both; }
+  .btn-primary {
+    background: var(--indigo); color: #fff;
+    padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 16px rgba(79,70,229,0.3);
+  }
+  .btn-primary:hover { background: var(--indigo-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,70,229,0.35); }
+  .btn-ghost {
+    background: #fff; color: var(--text-muted);
+    padding: 14px 28px; border-radius: 10px; font-weight: 500; font-size: 0.95rem;
+    text-decoration: none; border: 1px solid var(--border-light); transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow-sm);
+  }
+  .btn-ghost:hover { border-color: var(--indigo-200); color: var(--indigo); background: var(--indigo-50); }
+  .hero-langs { position: relative; z-index: 1; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 32px 0 0; animation: fadeUp 0.6s 0.4s ease both; }
+  .lang-pill { padding: 5px 14px; border-radius: 100px; border: 1px solid var(--border-light); font-size: 0.82rem; font-weight: 600; background: #fff; color: var(--text-muted); box-shadow: var(--shadow-sm); }
+  .hero-stats { position: relative; z-index: 1; display: flex; gap: 56px; flex-wrap: wrap; justify-content: center; margin-top: 72px; animation: fadeUp 0.6s 0.5s ease both; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 2rem; font-weight: 800; color: var(--indigo); letter-spacing: -0.04em; }
+  .stat-label { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; font-weight: 500; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border-light); }
+
+  /* SECTION BASE */
+  section { padding: 96px 6%; position: relative; }
+  .section-eyebrow { display: flex; align-items: center; gap: 7px; font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--indigo); margin-bottom: 14px; }
+  .section-title { font-size: clamp(1.75rem, 3.5vw, 2.65rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 16px; color: var(--text); }
+  .section-sub { font-size: 1rem; color: var(--text-muted); max-width: 540px; line-height: 1.75; font-weight: 400; }
+
+  /* PILLARS */
+  .pillars { background: #fff; }
+  .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 52px; }
+  .pillar-card { background: #fff; border: 1px solid var(--border-light); border-radius: 16px; padding: 32px 28px; transition: all 0.25s; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); }
+  .pillar-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--indigo), #818cf8); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; border-radius: 3px 3px 0 0; }
+  .pillar-card:hover { border-color: var(--indigo-200); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+  .pillar-card:hover::after { transform: scaleX(1); }
+  .pillar-num { font-size: 0.7rem; font-weight: 700; color: var(--text-dim); letter-spacing: 0.12em; margin-bottom: 18px; }
+  .pillar-icon-wrap { width: 44px; height: 44px; border-radius: 10px; background: var(--indigo-50); border: 1px solid var(--indigo-100); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--indigo); font-size: 22px; }
+  .pillar-card h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 9px; color: var(--text); letter-spacing: -0.01em; }
+  .pillar-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; }
+  .pillar-tag { display: inline-flex; align-items: center; gap: 5px; margin-top: 16px; font-size: 0.71rem; font-weight: 700; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; }
+  .tag-indigo { background: var(--indigo-50); color: var(--indigo); border: 1px solid var(--indigo-100); }
+  .tag-green { background: var(--green-soft); color: var(--green-label); border: 1px solid var(--green-border); }
+
+  /* AI COURSE BUILDER */
+  .ai-course-sec { background: var(--bg2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  @media(max-width:860px){ .two-col,.lang-inner,.copo-top,.nmc-inner { grid-template-columns:1fr!important; gap:48px!important; } }
+  .steps-list { display: flex; flex-direction: column; margin-top: 32px; }
+  .step-item { display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
+  .step-item:last-child { border-bottom: none; }
+  .step-num { width: 26px; height: 26px; border-radius: 7px; background: var(--indigo-50); border: 1px solid var(--indigo-100); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; color: var(--indigo); flex-shrink: 0; margin-top: 2px; }
+  .step-text h4 { font-size: 0.93rem; font-weight: 700; margin-bottom: 4px; color: var(--text); letter-spacing: -0.01em; }
+  .step-text p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; }
+  .speed-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--green-soft); border: 1px solid var(--green-border); border-radius: 100px; padding: 7px 16px; font-size: 0.82rem; font-weight: 600; color: var(--green-label); margin-top: 28px; }
+
+  /* COURSE MOCK */
+  .course-mock { background: #fff; border: 1px solid var(--border-light); border-radius: 16px; padding: 22px; box-shadow: var(--shadow-lg); }
+  .mock-titlebar { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+  .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .mock-label { font-size: 0.68rem; font-weight: 600; color: var(--text-dim); margin-left: 6px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .mock-course-title { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light); }
+  .mock-modules { display: flex; flex-direction: column; gap: 6px; }
+  .mock-module { display: flex; align-items: center; gap: 11px; background: var(--bg2); border: 1px solid var(--border-light); border-radius: 8px; padding: 10px 12px; transition: all 0.2s; }
+  .mock-module:hover { background: var(--indigo-50); border-color: var(--indigo-100); }
+  .mock-module-icon { width: 28px; height: 28px; border-radius: 6px; background: var(--indigo-50); border: 1px solid var(--indigo-100); display: flex; align-items: center; justify-content: center; color: var(--indigo); flex-shrink: 0; font-size: 13px; }
+  .mock-module-text { flex: 1; }
+  .mod-title { font-size: 0.81rem; font-weight: 600; color: var(--text); }
+  .mod-sub { font-size: 0.68rem; color: var(--text-dim); margin-top: 1px; }
+  .mod-badge { font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0; }
+  .badge-ai { background: var(--indigo-50); color: var(--indigo); border: 1px solid var(--indigo-100); }
+  .badge-live { background: var(--green-soft); color: var(--green-label); border: 1px solid var(--green-border); }
+  .co-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+  .co-tag { font-size: 0.68rem; font-weight: 700; padding: 3px 9px; border-radius: 4px; letter-spacing: 0.04em; }
+  .co-tag.mapped { background: var(--indigo-50); color: var(--indigo); border: 1px solid var(--indigo-100); }
+  .co-tag.ready { background: var(--green-soft); color: var(--green-label); border: 1px solid var(--green-border); }
+
+  /* AI TOOLS */
+  .ai-tools-sec { background: #fff; }
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 52px; }
+  .tool-card { background: #fff; border: 1px solid var(--border-light); border-radius: 14px; padding: 26px 24px; transition: all 0.25s; box-shadow: var(--shadow-sm); }
+  .tool-card:hover { border-color: var(--indigo-200); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+  .tool-icon-wrap { width: 42px; height: 42px; border-radius: 10px; background: var(--indigo-50); border: 1px solid var(--indigo-100); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: var(--indigo); font-size: 20px; }
+  .tool-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 7px; color: var(--text); letter-spacing: -0.01em; }
+  .tool-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; }
+  .tool-bullets { margin-top: 13px; display: flex; flex-direction: column; gap: 5px; }
+  .tool-bullet { font-size: 0.77rem; color: var(--text-dim); display: flex; align-items: center; gap: 6px; }
+  .tool-bullet i { color: var(--green); font-size: 13px; }
+
+  /* CO-PO */
+  .copo-sec { background: var(--bg2); }
+  .copo-top { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; align-items: start; margin-top: 52px; }
+  .col-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
+  .col-label.red { color: var(--red-label); }
+  .col-label.green { color: var(--green-label); }
+  .pain-items,.solve-items { display: flex; flex-direction: column; gap: 10px; }
+  .pain-item { display: flex; gap: 12px; padding: 15px 17px; border-radius: 10px; background: var(--red-soft); border: 1px solid var(--red-border); }
+  .pain-item .pi-icon { color: #dc2626; font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+  .pain-item h4 { font-size: 0.87rem; font-weight: 700; color: var(--red-text); margin-bottom: 3px; }
+  .pain-item p { font-size: 0.79rem; color: #b91c1c; opacity: 0.75; line-height: 1.5; }
+  .solve-item { display: flex; gap: 12px; padding: 15px 17px; border-radius: 10px; background: var(--green-soft); border: 1px solid var(--green-border); }
+  .solve-item .si-icon { color: var(--green); font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+  .solve-item h4 { font-size: 0.87rem; font-weight: 700; color: var(--green-text); margin-bottom: 3px; }
+  .solve-item p { font-size: 0.79rem; color: var(--green-text); opacity: 0.7; line-height: 1.5; }
+  .accred-chips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 18px; }
+  .accred-chip { padding: 5px 13px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.04em; background: var(--indigo-50); color: var(--indigo); border: 1px solid var(--indigo-100); display: flex; align-items: center; gap: 5px; }
+  .flow-divider { display: flex; align-items: center; gap: 14px; margin: 48px 0 18px; }
+  .flow-divider span { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
+  .flow-divider::before,.flow-divider::after { content:''; flex:1; height:1px; background: var(--border-light); }
+  .flow-row { display: flex; align-items: stretch; overflow-x: auto; gap: 0; padding-bottom: 6px; }
+  .flow-node { background: #fff; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px 16px; min-width: 148px; text-align: center; flex-shrink: 0; transition: all 0.2s; box-shadow: var(--shadow-sm); }
+  .flow-node:hover { border-color: var(--indigo-200); background: var(--indigo-50); box-shadow: var(--shadow-md); }
+  .flow-node .fn-icon { font-size: 20px; color: var(--indigo); margin-bottom: 9px; }
+  .flow-node h4 { font-size: 0.83rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .flow-node p { font-size: 0.7rem; color: var(--text-dim); line-height: 1.4; }
+  .flow-arrow { width: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--indigo-200); font-size: 17px; }
+  .copo-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 14px; margin-top: 32px; }
+  .copo-metric { background: #fff; border: 1px solid var(--border-light); border-radius: 12px; padding: 20px; text-align: center; box-shadow: var(--shadow-sm); }
+  .copo-metric .m-val { font-size: 1.75rem; font-weight: 800; color: var(--indigo); letter-spacing: -0.04em; }
+  .copo-metric .m-label { font-size: 0.73rem; color: var(--text-dim); margin-top: 4px; font-weight: 500; }
+
+  /* LANGUAGES */
+  .languages-sec { background: #fff; }
+  .lang-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .lang-map { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .lang-tile { aspect-ratio: 1; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: #fff; border: 1px solid var(--border-light); transition: all 0.2s; cursor: default; box-shadow: var(--shadow-sm); }
+  .lang-tile:hover { background: var(--indigo-50); border-color: var(--indigo-200); transform: scale(1.04); }
+  .lang-native { font-size: 0.98rem; font-weight: 700; color: var(--text); }
+  .lang-en { font-size: 0.62rem; color: var(--text-dim); font-weight: 500; }
+  .lang-tile.more { background: var(--indigo-50); border-color: var(--indigo-100); }
+  .lang-tile.more .lang-native { font-size: 1.2rem; color: var(--indigo); }
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-top: 26px; }
+  .check-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.89rem; color: var(--text-muted); }
+  .check-list li i { color: var(--green); font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+
+  /* GOVT */
+  .govt-sec { background: var(--indigo); }
+  .govt-inner-wrap { display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: center; }
+  @media(max-width:768px){ .govt-inner-wrap { grid-template-columns:1fr; gap:36px; } }
+  .govt-title { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 14px; color: #fff; }
+  .govt-desc { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.75; margin-bottom: 28px; max-width: 520px; }
+  .check-list-white { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .check-list-white li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: rgba(255,255,255,0.8); }
+  .check-list-white li i { color: rgba(255,255,255,0.6); font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+  .btn-white { background: #fff; color: var(--indigo); padding: 13px 26px; border-radius: 10px; font-weight: 700; font-size: 0.92rem; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .btn-white:hover { background: var(--indigo-50); transform: translateY(-2px); }
+  .govt-price-block { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 36px 44px; text-align: center; min-width: 190px; backdrop-filter: blur(10px); }
+  .govt-price { font-size: 3rem; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.04em; }
+  .govt-price-sub { font-size: 0.83rem; color: rgba(255,255,255,0.7); margin-top: 8px; line-height: 1.5; }
+
+  /* NMC */
+  .nmc-sec { background: var(--bg2); }
+  .nmc-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+  .nmc-badge-list { display: flex; flex-direction: column; gap: 14px; }
+  .nmc-badge { border-radius: 12px; padding: 20px; display: flex; align-items: flex-start; gap: 14px; border: 1px solid var(--border-light); background: #fff; transition: all 0.2s; box-shadow: var(--shadow-sm); }
+  .nmc-badge:hover { border-color: var(--indigo-200); box-shadow: var(--shadow-md); }
+  .nmc-badge .nb-icon { width: 38px; height: 38px; border-radius: 9px; background: var(--indigo-50); border: 1px solid var(--indigo-100); display: flex; align-items: center; justify-content: center; color: var(--indigo); font-size: 18px; flex-shrink: 0; }
+  .nmc-badge h4 { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .nmc-badge p { font-size: 0.81rem; color: var(--text-muted); line-height: 1.55; }
+  .nmc-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .nmc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; border-radius: 9px; background: #fff; border: 1px solid var(--border-light); font-size: 0.87rem; color: var(--text-muted); line-height: 1.5; box-shadow: var(--shadow-sm); }
+  .nmc-list li i { color: var(--indigo); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* TRUST */
+  .social-sec { background: #fff; }
+  .logo-strip { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 36px; }
+  .logo-chip { background: var(--bg2); border: 1px solid var(--border-light); border-radius: 8px; padding: 10px 18px; font-size: 0.84rem; font-weight: 600; color: var(--text-muted); }
+
+  /* CTA FINAL */
+  .cta-final { background: var(--bg2); text-align: center; border-top: 1px solid var(--border-light); }
+  .cta-final h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; color: var(--text); }
+  .cta-final h2 .highlight { background: linear-gradient(135deg, var(--indigo), #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .cta-final p { font-size: 1rem; color: var(--text-muted); margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+  .cta-footnote { font-size: 0.78rem; color: var(--text-dim); display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px; }
+  .cta-footnote span { display: flex; align-items: center; gap: 5px; }
+  .cta-footnote i { font-size: 13px; color: var(--indigo); }
+
+  /* FOOTER */
+  footer { background: #fff; border-top: 1px solid var(--border-light); padding: 26px 6%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+  .foot-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.92rem; color: var(--text-muted); }
+  .foot-logo span { color: var(--indigo); }
+  footer p { font-size: 0.76rem; color: var(--text-dim); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media(max-width:600px){ nav{padding:0 5%} section{padding:72px 5%} .hero-stats{gap:28px} .lang-map{grid-template-columns:repeat(3,1fr)} }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://zoho.com/classes" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 256 256" fill="#fff"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,208,128,208s78.84-16.47,91.94-31.06A15.91,15.91,0,0,0,224,166.29V117.87l16-8.53V176a8,8,0,0,0,16,0V96A8,8,0,0,0,251.76,88.94ZM208,166.29c-9.4,10.38-35.28,25.71-80,25.71s-70.6-15.33-80-25.71V126.28l76.24,40.66a8,8,0,0,0,7.52,0L208,126.28Zm-80-41.06L28,96l100-53.33L228,96Z"/></svg>
+    </div>
+    <span class="nav-logo-text">Zoho <span>Classes</span></span>
+  </a>
+  <div class="nav-center">
+    <a href="#ai-course" class="nav-link">AI Course Builder</a>
+    <a href="#copo" class="nav-link">CO-PO</a>
+    <a href="#nmc" class="nav-link">NMC</a>
+    <a href="#government" class="nav-link">Government</a>
+  </div>
+  <a href="https://www.zoho.com/classes/signup.html" class="nav-cta">
+    Get Started Free <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="live-dot"></span>
+    Launching in India &nbsp;·&nbsp; 2025
+  </div>
+  <h1>AI-Powered Academic LMS<br><span class="highlight">Built for Bharat</span></h1>
+  <p class="hero-sub">Build complete courses in 30 seconds. Automate CO-PO attainment. Free for Government institutions. NMC Level 3 compliant — from primary schools to premier medical colleges.</p>
+  <div class="hero-actions">
+    <a href="https://www.zoho.com/classes/signup.html" class="btn-primary">
+      <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 256 256" fill="currentColor"><path d="M152,224a8,8,0,0,1-8,8H112a8,8,0,0,1-8-8V184H152Zm72-148.31C224,130.6,199.65,163,173.36,186.48A15.89,15.89,0,0,1,162.52,191H93.48a15.89,15.89,0,0,1-10.84-4.52C56.35,163,32,130.6,32,75.69A100,100,0,0,1,128,8,100,100,0,0,1,224,75.69ZM208,75.69A84,84,0,0,0,88.35,28.28,84.37,84.37,0,0,0,48,75.69C48,123.92,69.28,153.3,93.48,175h69a84.69,84.69,0,0,0,23.06-27.34A85.08,85.08,0,0,0,208,75.69ZM128,48a8,8,0,0,1,0,16,44,44,0,0,0-44,44,8,8,0,0,1-16,0A60.07,60.07,0,0,1,128,48Z"/></svg>
+      Start Free Today
+    </a>
+    <a href="#ai-course" class="btn-ghost">
+      See How It Works
+      <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,133.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,122.34L120,188.69V40a8,8,0,0,1,16,0V188.69l66.34-66.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+    </a>
+  </div>
+  <div class="hero-langs">
+    <span class="lang-pill" style="font-family:'Noto Sans Devanagari',sans-serif">हिंदी</span>
+    <span class="lang-pill">বাংলা</span>
+    <span class="lang-pill" style="font-family:'Noto Sans Tamil',sans-serif">தமிழ்</span>
+    <span class="lang-pill">తెలుగు</span>
+    <span class="lang-pill">ಕನ್ನಡ</span>
+    <span class="lang-pill">മലയാളം</span>
+    <span class="lang-pill" style="font-family:'Noto Sans Devanagari',sans-serif">मराठी</span>
+    <span class="lang-pill">ਪੰਜਾਬੀ</span>
+    <span class="lang-pill" style="color:var(--indigo);border-color:var(--indigo-100);background:var(--indigo-50)">+14 more</span>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">30s</div><div class="stat-label">Avg. course build time</div></div>
+    <div class="stat"><div class="stat-num">8M+</div><div class="stat-label">Push notifications sent</div></div>
+    <div class="stat"><div class="stat-num">90%</div><div class="stat-label">Less evaluation work</div></div>
+    <div class="stat"><div class="stat-num">22</div><div class="stat-label">Indian languages</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOUR PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="section-eyebrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"/></svg> Four pillars</div>
+  <h2 class="section-title">India-first by design</h2>
+  <p class="section-sub">Every feature built around the real constraints and ambitions of Indian education.</p>
+  <div class="pillars-grid reveal">
+    <div class="pillar-card">
+      <div class="pillar-num">01</div>
+      <div class="pillar-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L42.15,130.54a8,8,0,0,1,1-13.00l112-120a8,8,0,0,1,13.69,7L154.18,117.87l60.67,34.59a8,8,0,0,1-1,13Z"/></svg></div>
+      <h3>AI Course Builder</h3>
+      <p>Turn a lesson plan into a full flipped-learning course — modules, MCQs, assignments, practice tests — in 30 seconds.</p>
+      <span class="pillar-tag tag-indigo"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg> 30-second courses</span>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">02</div>
+      <div class="pillar-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M221.87,83.16A96,96,0,1,0,172.84,34.13a8,8,0,1,0,11.32,11.31,80,80,0,1,1-22.6,22.6A8,8,0,1,0,150.25,79.36,64,64,0,1,0,176.64,105.75a8,8,0,0,0-11.31-11.32A48,48,0,1,1,128,80a47.61,47.61,0,0,1,7,.52V104a8,8,0,0,0,16,0V72a8,8,0,0,0-2.34-5.66l-24-24a8,8,0,0,0-11.32,11.32L120,60.69V78.57A64.14,64.14,0,0,0,128,80Z"/></svg></div>
+      <h3>CO-PO Attainment</h3>
+      <p>India's biggest accreditation pain point — solved. Every assessment auto-mapped. NAAC and NBA reports generated in one click.</p>
+      <span class="pillar-tag tag-indigo"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM224,48V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48Zm-16,160V48H48V208H208Z"/></svg> NAAC / NBA ready</span>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">03</div>
+      <div class="pillar-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M232,208H216V152h8a8,8,0,0,0,4.9-14.31l-96-72a8,8,0,0,0-9.8,0l-96,72A8,8,0,0,0,32,152h8v56H24a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16ZM48,152H208v56H176V152a8,8,0,0,0-16,0v56H144V152a8,8,0,0,0-16,0v56H112V152a8,8,0,0,0-16,0v56H80V152ZM128,65.09,204.31,120H51.69Z"/></svg></div>
+      <h3>Free for Government</h3>
+      <p>Government schools, colleges, and universities get every feature — all AI tools, analytics, and distribution — at zero cost.</p>
+      <span class="pillar-tag tag-green"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 256 256" fill="currentColor"><path d="M216,72a8,8,0,0,1-8,8H171.4a48.07,48.07,0,0,1-44.17,32H112l67.71,84.64a8,8,0,1,1-12.54,9.93l-80-100A8,8,0,0,1,93.27,96H127.2a32,32,0,0,0,31-24H48a8,8,0,0,1,0-16H158.2a32.06,32.06,0,0,0-31-24H48a8,8,0,0,1,0-16H208a8,8,0,0,1,0,16H183.42A47.9,47.9,0,0,1,194.71,56H208A8,8,0,0,1,216,72Z"/></svg> Zero cost for govt</span>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">04</div>
+      <div class="pillar-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M239.15,212.42l-56-112a8,8,0,0,0-14.31,0l-21.71,43.43A88.08,88.08,0,0,1,99,117.51c15.69-16.46,25.7-36.77,29.52-59.51H144a8,8,0,0,0,0-16H104V32a8,8,0,0,0-16,0V42H48a8,8,0,0,0,0,16H112.44C108.46,79.58,99.58,97,87.27,111.21A87.64,87.64,0,0,1,67.76,91.37a8,8,0,1,0-13.52,8.58A104.27,104.27,0,0,0,75,123.08,88,88,0,0,1,32,128a8,8,0,0,0,0,16,104.17,104.17,0,0,0,52.06-13.86,103.8,103.8,0,0,0,47.82,13.82L109.15,188.42a8,8,0,0,0,14.31,7.16L136,171h56l12.54,25.09a8,8,0,0,0,14.31-7.16ZM144,155l20-40,20,40Z"/></svg></div>
+      <h3>22 Regional Languages</h3>
+      <p>Teach and learn in any of India's scheduled languages. AI Tutor, courses, MCQs, and question papers — in the student's mother tongue.</p>
+      <span class="pillar-tag tag-indigo"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.6,87.6,0,0,1-3.33,24H174.08c.61-7.88.92-16,.92-24s-.31-16.12-.92-24h38.59A87.6,87.6,0,0,1,216,128ZM40,128a87.6,87.6,0,0,1,3.33-24H81.92C81.31,111.88,81,120,81,128s.31,16.12.92,24H43.33A87.6,87.6,0,0,1,40,128Zm55.08-40c2.81-18.29,8.1-32.87,14.92-42.29V88Zm0,16h65.84c.63,7.84.95,15.94.95,24s-.32,16.16-.95,24H95.08c-.63-7.84-.95-15.94-.95-24S94.45,111.84,95.08,104Zm-15.16-16H43.78a88.28,88.28,0,0,1,42.71-39.81C81.31,56.65,78.08,67.26,79.92,88ZM97,168h62a87.81,87.81,0,0,1-14.92,42.29,87.34,87.34,0,0,1-32.12,0A87.81,87.81,0,0,1,97,168Zm65.08,0H212.22a88.18,88.18,0,0,1-42.71,39.81C174.69,199.35,177.92,188.74,162.08,168ZM176.08,88c1.84-20.74-1.39-31.35-6.79-39.81A88.18,88.18,0,0,1,212.22,88Z"/></svg> Mother-tongue first</span>
+    </div>
+  </div>
+</section>
+
+<!-- AI COURSE BUILDER -->
+<section class="ai-course-sec" id="ai-course">
+  <div class="two-col reveal">
+    <div>
+      <div class="section-eyebrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.19-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L148,80.89l59.43,5.14a16,16,0,0,1,9.11,28.35Zm-16.25,10.16-59.46-5.14a8,8,0,0,1-6.67-4.88L128,61.73,104.82,114.52a8,8,0,0,1-6.67,4.88L38.7,124.54l45.11,39.42a8,8,0,0,1,2.54,7.89L72.89,230,124,199a8,8,0,0,1,8,0l51,31-13.43-58.2a8,8,0,0,1,2.54-7.89Z"/></svg> AI Course Builder</div>
+      <h2 class="section-title">A full course<br>in 30 seconds</h2>
+      <p class="section-sub">Drop in your lesson plan or syllabus. Zoho Classes AI structures it into a complete flipped-learning course — ready to publish instantly.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <h4>Paste your lesson plan or topic</h4>
+            <p>Upload a syllabus PDF, type a topic, or paste your notes. AI reads and understands the full context.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <h4>AI generates the complete course</h4>
+            <p>Modules, reading material, MCQ banks, assignments, and practice tests — all auto-created and CO-PO mapped.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <h4>Students access it before class</h4>
+            <p>Flipped learning activates — students arrive prepared, classroom time shifts to deeper discussion.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">
+            <h4>Attainment tracks itself</h4>
+            <p>Every interaction auto-updates CO attainment. Accreditation data accumulates continuously.</p>
+          </div>
+        </div>
+      </div>
+      <div class="speed-badge">
+        <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 256 256" fill="currentColor"><path d="M128,40a96,96,0,1,0,96,96A96.11,96.11,0,0,0,128,40Zm0,176a80,80,0,1,1,80-80A80.09,80.09,0,0,1,128,216ZM173.66,90.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32-11.32l40-40A8,8,0,0,1,173.66,90.34ZM96,16a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H104A8,8,0,0,1,96,16Z"/></svg>
+        Average course creation time: 30 seconds
+      </div>
+    </div>
+    <div>
+      <div class="course-mock">
+        <div class="mock-titlebar">
+          <div class="mock-dot" style="background:#ff5f5f"></div>
+          <div class="mock-dot" style="background:#ffbd2e"></div>
+          <div class="mock-dot" style="background:#28ca41"></div>
+          <span class="mock-label">AI-generated course preview</span>
+        </div>
+        <div class="mock-course-title">Organic Chemistry — Unit 4: Hydrocarbons</div>
+        <div class="mock-modules">
+          <div class="mock-module">
+            <div class="mock-module-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M164.44,105.34l-48-32A8,8,0,0,0,104,80v64a8,8,0,0,0,12.44,6.66l48-32a8,8,0,0,0,0-13.32ZM120,129.05V95l25.58,17ZM216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200Z"/></svg></div>
+            <div class="mock-module-text">
+              <div class="mod-title">Introduction to Hydrocarbons</div>
+              <div class="mod-sub">Video · 8 min · Auto-captioned in Hindi</div>
+            </div>
+            <span class="mod-badge badge-ai">AI Built</span>
+          </div>
+          <div class="mock-module">
+            <div class="mock-module-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM224,48V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48Zm-16,160V48H48V208H208Z"/></svg></div>
+            <div class="mock-module-text">
+              <div class="mod-title">MCQ Bank — Nomenclature (20 questions)</div>
+              <div class="mod-sub">Auto-graded · Bloom's Level 2 · CO3 mapped</div>
+            </div>
+            <span class="mod-badge badge-ai">AI Built</span>
+          </div>
+          <div class="mock-module">
+            <div class="mock-module-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M243.31,90.91l-64.24-64.24a16,16,0,0,0-22.62,0L36.69,146.43A16,16,0,0,0,32,157.37v18.26A16.09,16.09,0,0,0,48,192H66.37a16,16,0,0,0,11-4.42l120-119.83,1,1L78.06,188.42A16,16,0,0,1,67.37,192H48a16.09,16.09,0,0,1-16-16.37V157.37a16,16,0,0,1,4.69-10.94l80-79.82-5.66-5.66L32,141.37a24,24,0,0,0-7,16.41v18.85A24.13,24.13,0,0,0,48.91,200H67.77a24,24,0,0,0,16.42-6.44L225.66,64l5.65,5.66L89.54,210.43A8,8,0,0,0,96,224a7.9,7.9,0,0,0,5.66-2.34l144-144a8,8,0,0,0,0-11.32l-2.35-2.34V64l.35.35a8,8,0,0,0,0-11.32Z" opacity="0"/><path d="M229,67,189,27a16,16,0,0,0-22.63,0l-80,80A56,56,0,0,0,165,186.63l8.08-8.09c-1.35.95-2.73,1.86-4.16,2.69a40,40,0,0,1-54.88-54.6L194,51.31,204.69,62,115.31,151.31A24,24,0,0,0,149.19,185C159.69,178,168,167,168,155.78V64.92l2.7,2.7L56.92,181.37A8,8,0,1,0,68.24,192.7L182,79,193,90,79,204a24,24,0,0,1-33.94,0L24,183a24,24,0,0,1,0-33.94L143.37,30.63a16,16,0,0,1,22.63,0L206,70.63Z" opacity="0"/><path d="M183.66,56l-96,96a8,8,0,1,0,11.32,11.32l96-96A8,8,0,0,0,183.66,56ZM216,168H104v16H216a8,8,0,0,0,0-16Zm24,32H40a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM72,168a8,8,0,0,0,0,16h8V168Zm152-96a8,8,0,0,0-8,8v8h16v-8A8,8,0,0,0,224,72Z" opacity="0"/></svg></div>
+            <div class="mock-module-text">
+              <div class="mod-title">Assignment — Isomers Lab Report</div>
+              <div class="mod-sub">Rubric auto-created · CO4 mapped</div>
+            </div>
+            <span class="mod-badge badge-ai">AI Built</span>
+          </div>
+          <div class="mock-module">
+            <div class="mock-module-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-28,16v24H120V152Zm-44,12a12,12,0,0,1,12-12h12v24H104A12,12,0,0,1,92,164Zm72,12H152V152h12a12,12,0,0,1,0,24ZM100,108a12,12,0,1,1,12,12A12,12,0,0,1,100,108Zm48,0a12,12,0,1,1,12,12A12,12,0,0,1,148,108Z"/></svg></div>
+            <div class="mock-module-text">
+              <div class="mod-title">AI Tutor — Doubt Clearing</div>
+              <div class="mod-sub">Available 24/7 · Responds in student's language</div>
+            </div>
+            <span class="mod-badge badge-live">Live</span>
+          </div>
+          <div class="mock-module">
+            <div class="mock-module-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66l-80,80a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,11.32ZM200,32H163.74a47.75,47.75,0,0,0-71.48,0H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm72,176H56V48H82.74a47.86,47.86,0,0,0-.74,8,8,8,0,0,0,8,8h76a8,8,0,0,0,8-8,47.86,47.86,0,0,0-.74-8H200Z"/></svg></div>
+            <div class="mock-module-text">
+              <div class="mod-title">Practice Test — Adaptive · 3 attempts</div>
+              <div class="mod-sub">Weak-area detection · Score trend tracked</div>
+            </div>
+            <span class="mod-badge badge-ai">AI Built</span>
+          </div>
+        </div>
+        <div class="co-tags">
+          <span class="co-tag mapped">CO1</span>
+          <span class="co-tag mapped">CO3</span>
+          <span class="co-tag mapped">CO4</span>
+          <span class="co-tag mapped">PO2</span>
+          <span class="co-tag mapped">PO5</span>
+          <span class="co-tag ready">NAAC Ready</span>
+          <span class="co-tag ready">NBA Ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI ASSISTANTS -->
+<section class="ai-tools-sec" id="ai-tools">
+  <div class="section-eyebrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M200,48H136V16a8,8,0,0,0-16,0V48H56A32,32,0,0,0,24,80V192a32,32,0,0,0,32,32H200a32,32,0,0,0,32-32V80A32,32,0,0,0,200,48Zm16,144a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V80A16,16,0,0,1,56,64H200a16,16,0,0,1,16,16Zm-52-56H92a28,28,0,0,0,0,56h72a28,28,0,0,0,0-56Zm-28,16v24H120V152Zm-44,12a12,12,0,0,1,12-12h12v24H104A12,12,0,0,1,92,164Zm72,12H152V152h12a12,12,0,0,1,0,24ZM100,108a12,12,0,1,1,12,12A12,12,0,0,1,100,108Zm48,0a12,12,0,1,1,12,12A12,12,0,0,1,148,108Z"/></svg> AI Assistants</div>
+  <h2 class="section-title">Your AI teaching team</h2>
+  <p class="section-sub">Specialised assistants that handle everything from writing MCQs to making your class unforgettable — so you focus on teaching.</p>
+  <div class="tools-grid reveal">
+    <div class="tool-card">
+      <div class="tool-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.64,71.64,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg></div>
+      <h3>MCQ Generator</h3>
+      <p>Paste any chapter or topic — get a full bank of MCQs with distractors, difficulty tags, and CO mappings instantly.</p>
+      <div class="tool-bullets">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Bloom's taxonomy aligned</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Easy / Medium / Hard tagging</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Exports to question paper</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66l-80,80a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,11.32ZM200,32H163.74a47.75,47.75,0,0,0-71.48,0H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm72,176H56V48H82.74a47.86,47.86,0,0,0-.74,8,8,8,0,0,0,8,8h76a8,8,0,0,0,8-8,47.86,47.86,0,0,0-.74-8H200Z"/></svg></div>
+      <h3>Assignment Creator</h3>
+      <p>AI writes complete assignment briefs with rubrics, evaluation criteria, and auto-grading rules — just describe the goal.</p>
+      <div class="tool-bullets">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Rubric auto-generation</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> CO-PO auto-tagged</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Plagiarism-aware prompts</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.19-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L148,80.89l59.43,5.14a16,16,0,0,1,9.11,28.35Zm-16.25,10.16-59.46-5.14a8,8,0,0,1-6.67-4.88L128,61.73,104.82,114.52a8,8,0,0,1-6.67,4.88L38.7,124.54l45.11,39.42a8,8,0,0,1,2.54,7.89L72.89,230,124,199a8,8,0,0,1,8,0l51,31-13.43-58.2a8,8,0,0,1,2.54-7.89Z"/></svg></div>
+      <h3>Engagement Expert</h3>
+      <p>AI suggests role plays, debates, case studies, live polls, and gamified activities tailored to your subject and class level.</p>
+      <div class="tool-bullets">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Role-play scenarios</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Live poll prompts</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Gamified challenge ideas</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.19-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L148,80.89l59.43,5.14a16,16,0,0,1,9.11,28.35Zm-16.25,10.16-59.46-5.14a8,8,0,0,1-6.67-4.88L128,61.73,104.82,114.52a8,8,0,0,1-6.67,4.88L38.7,124.54l45.11,39.42a8,8,0,0,1,2.54,7.89L72.89,230,124,199a8,8,0,0,1,8,0l51,31-13.43-58.2a8,8,0,0,1,2.54-7.89Z"/></svg></div>
+      <h3>Metaphor Creator</h3>
+      <p>Complex concepts explained through relatable Indian analogies — from cricket to chai — so every student connects immediately.</p>
+      <div class="tool-bullets">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Culturally relevant analogies</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Regional language metaphors</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Visual explainer suggestions</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M200,24H72A16,16,0,0,0,56,40V64H40a8,8,0,0,0,0,16H56v40H40a8,8,0,0,0,0,16H56v40H40a8,8,0,0,0,0,16H56v24a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V40A16,16,0,0,0,200,24Zm0,192H72V40H200ZM160,72a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h40A8,8,0,0,1,160,72Zm0,48a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h40A8,8,0,0,1,160,120Zm0,48a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h40A8,8,0,0,1,160,168Z"/></svg></div>
+      <h3>Lesson Plan Builder</h3>
+      <p>Enter a topic and duration — AI drafts a full structured lesson plan with objectives, activities, assessments, and timing.</p>
+      <div class="tool-bullets">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> NEP 2020 aligned format</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Differentiated instruction tips</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> One-click course creation</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></svg></div>
+      <h3>AI Tutor</h3>
+      <p>Every student gets a personal AI teacher that answers doubts, explains step-by-step, and adapts to their pace and language.</p>
+      <div class="tool-bullets">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Available 24/7</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> 22 regional languages</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Doubt confidence tracking</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg></div>
+      <h3>Teaching Aid Generator</h3>
+      <p>Generate handouts, summary sheets, mind maps, and reference cards for any topic — print-ready in seconds.</p>
+      <div class="tool-bullets">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Printable handouts</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Mind map outlines</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Infographic summaries</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></div>
+      <h3>Adaptive Practice Tests</h3>
+      <p>Students attempt unlimited adaptive tests. AI adjusts difficulty based on weak areas and tracks improvement over time.</p>
+      <div class="tool-bullets">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Unlimited retakes</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Weak-area detection</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Score trend analytics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CO-PO DEEP DIVE -->
+<section class="copo-sec" id="copo">
+  <div class="section-eyebrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M221.87,83.16A96,96,0,1,0,172.84,34.13a8,8,0,1,0,11.32,11.31,80,80,0,1,1-22.6,22.6A8,8,0,1,0,150.25,79.36,64,64,0,1,0,176.64,105.75a8,8,0,0,0-11.31-11.32A48,48,0,1,1,128,80a47.61,47.61,0,0,1,7,.52V104a8,8,0,0,0,16,0V72a8,8,0,0,0-2.34-5.66l-24-24a8,8,0,0,0-11.32,11.32L120,60.69V78.57A64.14,64.14,0,0,0,128,80Z"/></svg> CO-PO Attainment</div>
+  <h2 class="section-title">India's biggest accreditation<br>pain point — solved</h2>
+  <p class="section-sub">CO-PO mapping is mandatory for NAAC, NBA, and UGC accreditation — but most institutions still drown in spreadsheets. Zoho Classes automates it entirely.</p>
+  <div class="copo-top reveal">
+    <div>
+      <div class="col-label red"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 256 256" fill="currentColor"><path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0L222.93,196.08A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"/></svg> The problem today</div>
+      <div class="pain-items">
+        <div class="pain-item">
+          <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM40,112H80v32H40Zm56,0H216v32H96ZM216,64V96H40V64ZM40,160H80v32H40Zm56,0H216v32H96Z"/></svg>
+          <div><h4>Manual spreadsheet nightmare</h4><p>Faculty spend weeks filling CO attainment matrices in Excel before every accreditation visit.</p></div>
+        </div>
+        <div class="pain-item">
+          <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M213.67,109.19a8,8,0,0,0-11.12,2L128,222.56l-74.55-111.37a52,52,0,1,0-13.31,8.9L112,240.81a16,16,0,0,0,32,0l71.86-107.36a8,8,0,0,0-2.19-24.26ZM52,148a36,36,0,1,1,36-36A36,36,0,0,1,52,148Zm152,0a36,36,0,1,1,36-36A36,36,0,0,1,204,148Z" opacity="0.4"/><path d="M128,107.19,74.55,28.81a52,52,0,1,0-13.31,8.9L128,148.81l66.76-111.1a52,52,0,1,0-13.31-8.9ZM52,92a36,36,0,1,1,36-36A36,36,0,0,1,52,92Zm152,0a36,36,0,1,1,36-36A36,36,0,0,1,204,92Z"/></svg>
+          <div><h4>No link between teaching and data</h4><p>Assignments and exams exist in isolation — no one tracks which assessments map to which outcomes in real time.</p></div>
+        </div>
+        <div class="pain-item">
+          <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M200,75.64V40a16,16,0,0,0-16-16H72A16,16,0,0,0,56,40V75.64a16.07,16.07,0,0,0,6.4,12.8L114.67,128,62.4,167.56A16.07,16.07,0,0,0,56,180.36V216a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V180.36a16.07,16.07,0,0,0-6.4-12.8L141.33,128l52.27-39.56A16.07,16.07,0,0,0,200,75.64ZM72,40H184V64H72ZM184,216H72V192H184Zm-6.4-64.44L128,190l-49.6-38.44L128,113.19Z"/></svg>
+          <div><h4>Attainment data is stale</h4><p>Reports compiled at year-end make it impossible to intervene when students are struggling mid-semester.</p></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-label green"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="13px" height="13px" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> The Zoho Classes solution</div>
+      <div class="solve-items">
+        <div class="solve-item">
+          <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L42.15,130.54a8,8,0,0,1,1-13.00l112-120a8,8,0,0,1,13.69,7L154.18,117.87l60.67,34.59a8,8,0,0,1-1,13Z"/></svg>
+          <div><h4>Auto-mapped from day one</h4><p>Every assignment, MCQ, and course module is automatically tagged to your CO and PO when AI creates it.</p></div>
+        </div>
+        <div class="solve-item">
+          <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></svg>
+          <div><h4>Real-time attainment dashboard</h4><p>Live CO attainment per student, per subject, per department — updated after every submission.</p></div>
+        </div>
+        <div class="solve-item">
+          <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-42.34-61.66a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L120,164.69V120a8,8,0,0,1,16,0v44.69l10.34-10.35A8,8,0,0,1,157.66,154.34Z"/></svg>
+          <div><h4>One-click accreditation reports</h4><p>Export NAAC, NBA, and UGC-compliant reports in the exact formats inspectors expect — in one click.</p></div>
+        </div>
+      </div>
+      <div class="accred-chips">
+        <span class="accred-chip"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM224,48V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48Zm-16,160V48H48V208H208Z"/></svg> NAAC</span>
+        <span class="accred-chip"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM224,48V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48Zm-16,160V48H48V208H208Z"/></svg> NBA</span>
+        <span class="accred-chip"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM224,48V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48Zm-16,160V48H48V208H208Z"/></svg> UGC</span>
+        <span class="accred-chip"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM224,48V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48Zm-16,160V48H48V208H208Z"/></svg> NMC Level 3</span>
+      </div>
+    </div>
+  </div>
+  <div class="flow-divider"><span>End-to-end workflow</span></div>
+  <div class="flow-row reveal">
+    <div class="flow-node"><div class="fn-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M245,110.64A16,16,0,0,0,232,104H216V88a16,16,0,0,0-16-16H130.67L102.94,51.2a16.14,16.14,0,0,0-9.6-3.2H40A16,16,0,0,0,24,64V208h0a8,8,0,0,0,8,8H211.1a8,8,0,0,0,7.59-5.47l28.49-85.47A16.05,16.05,0,0,0,245,110.64ZM93.34,64l27.73,20.8A16.12,16.12,0,0,0,130.67,88H200v16H72a16,16,0,0,0-15.18,10.94L40,163.2V64Zm120,144H43.1l26.67-80H232Z"/></svg></div><h4>Define CO & PO</h4><p>Set outcomes per course and program</p></div>
+    <div class="flow-arrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div>
+    <div class="flow-node"><div class="fn-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L42.15,130.54a8,8,0,0,1,1-13.00l112-120a8,8,0,0,1,13.69,7L154.18,117.87l60.67,34.59a8,8,0,0,1-1,13Z"/></svg></div><h4>AI Builds Content</h4><p>Every item auto-tagged to outcomes</p></div>
+    <div class="flow-arrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div>
+    <div class="flow-node"><div class="fn-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.32,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.32,64l24-24L216,84.69Z"/></svg></div><h4>Students Attempt</h4><p>Submissions scored and logged live</p></div>
+    <div class="flow-arrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div>
+    <div class="flow-node"><div class="fn-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160Zm-56,48h40V200H104ZM56,144H88v56H56Z"/></svg></div><h4>Live Attainment</h4><p>CO dashboard updates in real time</p></div>
+    <div class="flow-arrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></div>
+    <div class="flow-node"><div class="fn-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-42.34-61.66a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L120,164.69V120a8,8,0,0,1,16,0v44.69l10.34-10.35A8,8,0,0,1,157.66,154.34Z"/></svg></div><h4>1-Click Reports</h4><p>NAAC / NBA export ready instantly</p></div>
+  </div>
+  <div class="copo-metrics reveal">
+    <div class="copo-metric"><div class="m-val">90%</div><div class="m-label">Less evaluation time</div></div>
+    <div class="copo-metric"><div class="m-val">100%</div><div class="m-label">CO-PO traceability</div></div>
+    <div class="copo-metric"><div class="m-val">Live</div><div class="m-label">Attainment dashboard</div></div>
+    <div class="copo-metric"><div class="m-val">1-click</div><div class="m-label">Accreditation export</div></div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section class="languages-sec" id="languages">
+  <div class="lang-inner reveal">
+    <div>
+      <div class="section-eyebrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M239.15,212.42l-56-112a8,8,0,0,0-14.31,0l-21.71,43.43A88.08,88.08,0,0,1,99,117.51c15.69-16.46,25.7-36.77,29.52-59.51H144a8,8,0,0,0,0-16H104V32a8,8,0,0,0-16,0V42H48a8,8,0,0,0,0,16H112.44C108.46,79.58,99.58,97,87.27,111.21A87.64,87.64,0,0,1,67.76,91.37a8,8,0,1,0-13.52,8.58A104.27,104.27,0,0,0,75,123.08,88,88,0,0,1,32,128a8,8,0,0,0,0,16,104.17,104.17,0,0,0,52.06-13.86,103.8,103.8,0,0,0,47.82,13.82L109.15,188.42a8,8,0,0,0,14.31,7.16L136,171h56l12.54,25.09a8,8,0,0,0,14.31-7.16ZM144,155l20-40,20,40Z"/></svg> Regional languages</div>
+      <h2 class="section-title">India has 22 languages.<br>So does Zoho Classes.</h2>
+      <p class="section-sub">From Kashmir to Kanyakumari, every student learns in the language they think in. AI Tutor, courses, MCQs, and announcements — all in their mother tongue.</p>
+      <ul class="check-list">
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>AI Tutor responds in the student's chosen language</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Course content and MCQs auto-translated and reviewed</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Multilingual question papers and practice tests</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Regional language announcements and push notifications</li>
+      </ul>
+    </div>
+    <div class="lang-map">
+      <div class="lang-tile"><span class="lang-native" style="font-family:'Noto Sans Devanagari',sans-serif">हिंदी</span><span class="lang-en">Hindi</span></div>
+      <div class="lang-tile"><span class="lang-native">বাংলা</span><span class="lang-en">Bengali</span></div>
+      <div class="lang-tile"><span class="lang-native" style="font-family:'Noto Sans Tamil',sans-serif">தமிழ்</span><span class="lang-en">Tamil</span></div>
+      <div class="lang-tile"><span class="lang-native">తెలుగు</span><span class="lang-en">Telugu</span></div>
+      <div class="lang-tile"><span class="lang-native" style="font-family:'Noto Sans Devanagari',sans-serif">मराठी</span><span class="lang-en">Marathi</span></div>
+      <div class="lang-tile"><span class="lang-native">ಕನ್ನಡ</span><span class="lang-en">Kannada</span></div>
+      <div class="lang-tile"><span class="lang-native">ਪੰਜਾਬੀ</span><span class="lang-en">Punjabi</span></div>
+      <div class="lang-tile"><span class="lang-native">മലയാളം</span><span class="lang-en">Malayalam</span></div>
+      <div class="lang-tile"><span class="lang-native">ଓଡ଼ିଆ</span><span class="lang-en">Odia</span></div>
+      <div class="lang-tile"><span class="lang-native">অসমীয়া</span><span class="lang-en">Assamese</span></div>
+      <div class="lang-tile"><span class="lang-native" style="font-family:'Noto Sans Devanagari',sans-serif">संस्कृत</span><span class="lang-en">Sanskrit</span></div>
+      <div class="lang-tile more"><span class="lang-native">+11</span><span class="lang-en">More</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GOVT FREE — indigo bg as accent band -->
+<section class="govt-sec" id="government">
+  <div class="govt-inner-wrap reveal">
+    <div>
+      <div class="section-eyebrow" style="color:rgba(255,255,255,0.6)"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M232,208H216V152h8a8,8,0,0,0,4.9-14.31l-96-72a8,8,0,0,0-9.8,0l-96,72A8,8,0,0,0,32,152h8v56H24a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16ZM48,152H208v56H176V152a8,8,0,0,0-16,0v56H144V152a8,8,0,0,0-16,0v56H112V152a8,8,0,0,0-16,0v56H80V152ZM128,65.09,204.31,120H51.69Z"/></svg> Government partnership</div>
+      <div class="govt-title">Completely free for<br>government institutions</div>
+      <p class="govt-desc">Central and state government schools, colleges, and universities get the full Zoho Classes platform — every AI tool, CO-PO automation, distribution network, and analytics — at zero cost, forever.</p>
+      <ul class="check-list-white">
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Full platform access — no feature gating, no caps</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>AI Course Builder, MCQ Generator, all AI tools included</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Centralised distribution across all branches and districts</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>100,000+ prebuilt curriculum templates</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Data residency in India — sovereign and secure</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>Aligned to NEP 2020 implementation goals</li>
+      </ul>
+      <a href="https://www.zoho.com/classes/signup.html" class="btn-white">
+        <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+        Apply for Free Access
+      </a>
+    </div>
+    <div class="govt-price-block">
+      <div class="govt-price">&#x20B9;0</div>
+      <div class="govt-price-sub">Forever free<br>for govt institutions</div>
+    </div>
+  </div>
+</section>
+
+<!-- NMC -->
+<section class="nmc-sec" id="nmc">
+  <div class="nmc-inner reveal">
+    <div>
+      <div class="section-eyebrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32A8,8,0,0,1,176,128Z"/></svg> Medical education</div>
+      <h2 class="section-title">NMC Level 3<br>Accreditation Ready</h2>
+      <p class="section-sub" style="margin-bottom:28px">Built for the National Medical Commission's CBME framework — with integrated CO-PO mapping, clinical logs, and Level 3 assessment tools for medical colleges across India.</p>
+      <ul class="nmc-list">
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M240,94c0,70-103.79,126.66-108.21,129a8,8,0,0,1-7.58,0C119.79,220.66,16,164,16,94A62.07,62.07,0,0,1,78,32c20.65,0,38.73,8.88,50,23.89C139.27,40.88,157.35,32,178,32A62.07,62.07,0,0,1,240,94Zm-16,0a46.06,46.06,0,0,0-46-46c-17.28,0-32.4,8.35-41.6,22.9a8,8,0,0,1-13.6-.05C113.7,56.31,98.68,48,82,48A46.06,46.06,0,0,0,36,94c0,51.55,74.35,102.47,92,113.81C145.65,196.47,224,145.55,224,94Z"/></svg>CBME-aligned competency modules with auto CO-mapping</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66l-80,80a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,11.32ZM200,32H163.74a47.75,47.75,0,0,0-71.48,0H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm72,176H56V48H82.74a47.86,47.86,0,0,0-.74,8,8,8,0,0,0,8,8h76a8,8,0,0,0,8-8,47.86,47.86,0,0,0-.74-8H200Z"/></svg>Clinical log and logbook management for MBBS students</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66l-80,80a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,11.32ZM200,32H163.74a47.75,47.75,0,0,0-71.48,0H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm72,176H56V48H82.74a47.86,47.86,0,0,0-.74,8,8,8,0,0,0,8,8h76a8,8,0,0,0,8-8,47.86,47.86,0,0,0-.74-8H200Z"/></svg>OSPE, OSCE, and formative assessment tools built-in</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160Zm-56,48h40V200H104ZM56,144H88v56H56Z"/></svg>Real-time CO attainment tracking per competency</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"/></svg>Faculty monitoring, workload tracking, and sign-off workflows</li>
+        <li><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,114.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L128,148.69l34.34-34.35A8,8,0,0,1,173.66,114.34ZM232,88v48c0,63.41-54.1,98.21-98.32,116.81a16,16,0,0,1-11.36,0C78.1,234.21,24,199.41,24,136V88a16,16,0,0,1,14.77-15.94l88-8a16.1,16.1,0,0,1,2.46,0l88,8A16,16,0,0,1,232,88Zm-16,0-88-8-88,8v48c0,52.86,43.78,83.7,88,101.5C172.22,219.7,216,188.86,216,136Z"/></svg>Audit-ready documentation and reports for NMC inspections</li>
+      </ul>
+    </div>
+    <div class="nmc-badge-list">
+      <div class="nmc-badge">
+        <div class="nb-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M213.81,72.63,198.19,41.38A16,16,0,0,0,183.77,32H72.23A16,16,0,0,0,57.81,41.38L42.19,72.63A16,16,0,0,0,56,96.52V208a8,8,0,0,0,11.58,7.16L128,184.94l60.42,30.22A8,8,0,0,0,200,208V96.52A16,16,0,0,0,213.81,72.63ZM183.77,48l15.62,31.24L128,110.63,56.61,79.24,72.23,48ZM184,197.66l-52.42-26.22a8,8,0,0,0-7.16,0L72,197.66V102.6l56,25.59,56-25.59Z"/></svg></div>
+        <div><h4>NMC Level 3 Ready</h4><p>Assessment tools and CO documentation aligned with the National Medical Commission's CBME standards for accreditation</p></div>
+      </div>
+      <div class="nmc-badge">
+        <div class="nb-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h64a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></svg></div>
+        <div><h4>CBME Framework Support</h4><p>End-to-end Competency Based Medical Education workflow — from lesson delivery to competency sign-off and CO reporting</p></div>
+      </div>
+      <div class="nmc-badge">
+        <div class="nb-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,114.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L128,148.69l34.34-34.35A8,8,0,0,1,173.66,114.34ZM232,88v48c0,63.41-54.1,98.21-98.32,116.81a16,16,0,0,1-11.36,0C78.1,234.21,24,199.41,24,136V88a16,16,0,0,1,14.77-15.94l88-8a16.1,16.1,0,0,1,2.46,0l88,8A16,16,0,0,1,232,88Zm-16,0-88-8-88,8v48c0,52.86,43.78,83.7,88,101.5C172.22,219.7,216,188.86,216,136Z"/></svg></div>
+        <div><h4>MCI / UGC Compliant</h4><p>Meets data and assessment standards required by regulatory bodies for higher education institutions in India</p></div>
+      </div>
+      <div class="nmc-badge">
+        <div class="nb-icon"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M221.87,83.16A96,96,0,1,0,172.84,34.13a8,8,0,1,0,11.32,11.31,80,80,0,1,1-22.6,22.6A8,8,0,1,0,150.25,79.36,64,64,0,1,0,176.64,105.75a8,8,0,0,0-11.31-11.32A48,48,0,1,1,128,80a47.61,47.61,0,0,1,7,.52V104a8,8,0,0,0,16,0V72a8,8,0,0,0-2.34-5.66l-24-24a8,8,0,0,0-11.32,11.32L120,60.69V78.57A64.14,64.14,0,0,0,128,80Z"/></svg></div>
+        <div><h4>CO-PO at the Core</h4><p>Medical colleges share the same CO-PO pain as engineering — Zoho Classes resolves it for both with one unified system</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="social-sec">
+  <div class="section-eyebrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M240,208H224V96a16,16,0,0,0-16-16H164V48a16,16,0,0,0-16-16H64A16,16,0,0,0,48,48V208H32a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H164V96ZM64,48H148V208H120V168a8,8,0,0,0-8-8H84a8,8,0,0,0-8,8v40H64Zm40,160H92V176h12Z"/></svg> Trusted institutions</div>
+  <h2 class="section-title">Already backed by India's best</h2>
+  <div class="logo-strip reveal">
+    <div class="logo-chip">SRM Institute</div>
+    <div class="logo-chip">Sishya School</div>
+    <div class="logo-chip">Chettinad Health City</div>
+    <div class="logo-chip">CGIHM</div>
+    <div class="logo-chip">Vidya Mandir</div>
+    <div class="logo-chip">Grace International School</div>
+    <div class="logo-chip">GSE Institute</div>
+    <div class="logo-chip" style="border-color:var(--indigo-100);color:var(--indigo);background:var(--indigo-50)">+ State Governments</div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>India's education revolution<br><span class="highlight">starts here</span></h2>
+  <p>Build courses in 30 seconds. Automate CO-PO. Teach in every Indian language. Free for government.</p>
+  <div class="cta-group">
+    <a href="https://www.zoho.com/classes/signup.html" class="btn-primary">
+      <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 256 256" fill="currentColor"><path d="M152,224a8,8,0,0,1-8,8H112a8,8,0,0,1-8-8V184H152Zm72-148.31C224,130.6,199.65,163,173.36,186.48A15.89,15.89,0,0,1,162.52,191H93.48a15.89,15.89,0,0,1-10.84-4.52C56.35,163,32,130.6,32,75.69A100,100,0,0,1,128,8,100,100,0,0,1,224,75.69ZM208,75.69A84,84,0,0,0,88.35,28.28,84.37,84.37,0,0,0,48,75.69C48,123.92,69.28,153.3,93.48,175h69a84.69,84.69,0,0,0,23.06-27.34A85.08,85.08,0,0,0,208,75.69ZM128,48a8,8,0,0,1,0,16,44,44,0,0,0-44,44,8,8,0,0,1-16,0A60.07,60.07,0,0,1,128,48Z"/></svg>
+      Get Started Free
+    </a>
+    <a href="mailto:classes@zoho.com" class="btn-ghost">
+      <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z"/></svg>
+      Request a Demo
+    </a>
+  </div>
+  <div class="cta-footnote">
+    <span><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M40,216a8,8,0,0,1-16,0V40a8,8,0,0,1,16,0ZM216.36,40.36C199,57.68,181.67,48,160,48c-20,0-39.54,8-56,8A55.55,55.55,0,0,1,72,51.34v-.28A8,8,0,0,0,56,51v88.16A8,8,0,0,0,57.65,144C74,161.44,90,168,104,168c20,0,40-8,56-8,17.67,0,31,8.68,48.36-8.36A8,8,0,0,0,216,152V48A8,8,0,0,0,216.36,40.36Z"/></svg> Proudly built for Bharat</span>
+    <span><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H168V56a40,40,0,0,0-80,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM104,56a24,24,0,0,1,48,0V80H104ZM208,208H48V96H208V208Zm-68-56a12,12,0,1,1-12-12A12,12,0,0,1,140,152Z"/></svg> Data hosted in India</span>
+    <span><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h64a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64Z"/></svg> Supports NEP 2020</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<footer>
+  <div class="foot-logo">
+    <div style="width:26px;height:26px;background:var(--indigo);border-radius:6px;display:flex;align-items:center;justify-content:center">
+      <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" viewBox="0 0 256 256" fill="#fff"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,208,128,208s78.84-16.47,91.94-31.06A15.91,15.91,0,0,0,224,166.29V117.87l16-8.53V176a8,8,0,0,0,16,0V96A8,8,0,0,0,251.76,88.94ZM208,166.29c-9.4,10.38-35.28,25.71-80,25.71s-70.6-15.33-80-25.71V126.28l76.24,40.66a8,8,0,0,0,7.52,0L208,126.28Zm-80-41.06L28,96l100-53.33L228,96Z"/></svg>
+    </div>
+    Zoho <span>Classes</span>
+  </div>
+  <p>© 2025 Zoho Corporation Pvt. Ltd. All rights reserved.</p>
+  <p>zoho.com/classes</p>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  els.forEach(el => io.observe(el));
+  document.querySelectorAll('.pillar-card,.tool-card').forEach((c,i) => { c.style.transitionDelay = (i%4)*0.07+'s'; });
+</script>
+</body>
+</html>
