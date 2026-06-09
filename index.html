@@ -73,49 +73,30 @@
     position: relative; text-align: center; overflow: hidden;
     background: linear-gradient(180deg, #fafafe 0%, #ffffff 100%);
   }
-  /* subtle radial indigo glow */
-  .hero::before {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse 900px 600px at 50% 10%, rgba(79,70,229,0.06) 0%, transparent 70%);
-  }
-  /* dot grid */
-  .hero::after {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(circle, rgba(79,70,229,0.1) 1px, transparent 1px);
-    background-size: 28px 28px;
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
-  }
-  .hero-badge {
-    position: relative; z-index: 1;
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--indigo-50); border: 1px solid var(--indigo-200);
-    color: var(--indigo); font-size: 0.78rem; font-weight: 600;
-    padding: 6px 14px; border-radius: 100px; letter-spacing: 0.03em;
-    margin-bottom: 28px; animation: fadeUp 0.5s ease both;
-  }
-  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(5,150,105,0.2); animation: pulse 2s ease infinite; }
-  @keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(5,150,105,0.2)} 50%{box-shadow:0 0 0 7px rgba(5,150,105,0.04)} }
   .hero h1 {
-    position: relative; z-index: 1;
-    font-size: clamp(2.5rem, 5.5vw, 4.8rem); font-weight: 800;
+    font-size: clamp(2.6rem, 5.5vw, 4.8rem); font-weight: 800;
     line-height: 1.08; letter-spacing: -0.035em; max-width: 820px;
-    color: var(--text); animation: fadeUp 0.6s 0.1s ease both;
+    color: var(--text); position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.1s ease both;
   }
   .hero h1 .highlight {
     background: linear-gradient(135deg, var(--indigo) 0%, #6366f1 60%, #818cf8 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .hero-sub {
-    position: relative; z-index: 1;
-    font-size: 1.1rem; color: var(--text-muted); max-width: 560px;
+    font-size: 1.1rem; color: var(--text-muted); max-width: 580px;
     line-height: 1.75; margin: 24px auto 40px; font-weight: 400;
+    position: relative; z-index: 1;
     animation: fadeUp 0.6s 0.2s ease both;
   }
-  .hero-actions { position: relative; z-index: 1; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-actions {
+    position: relative; z-index: 1; display: flex; gap: 14px;
+    flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
   .btn-primary {
     background: var(--indigo); color: #fff;
-    padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+    padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: 0.95rem;
     text-decoration: none; transition: all 0.2s;
     display: inline-flex; align-items: center; gap: 8px;
     box-shadow: 0 4px 16px rgba(79,70,229,0.3);
@@ -123,21 +104,75 @@
   .btn-primary:hover { background: var(--indigo-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,70,229,0.35); }
   .btn-ghost {
     background: #fff; color: var(--text-muted);
-    padding: 14px 28px; border-radius: 10px; font-weight: 500; font-size: 0.95rem;
+    padding: 14px 24px; border-radius: 10px; font-weight: 500; font-size: 0.95rem;
     text-decoration: none; border: 1px solid var(--border-light); transition: all 0.2s;
     display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--shadow-sm);
   }
   .btn-ghost:hover { border-color: var(--indigo-200); color: var(--indigo); background: var(--indigo-50); }
-  .hero-langs { position: relative; z-index: 1; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin: 32px 0 0; animation: fadeUp 0.6s 0.4s ease both; }
-  .lang-pill { padding: 5px 14px; border-radius: 100px; border: 1px solid var(--border-light); font-size: 0.82rem; font-weight: 600; background: #fff; color: var(--text-muted); box-shadow: var(--shadow-sm); }
-  .hero-stats { position: relative; z-index: 1; display: flex; gap: 56px; flex-wrap: wrap; justify-content: center; margin-top: 72px; animation: fadeUp 0.6s 0.5s ease both; }
+  .hero-langs {
+    position: relative; z-index: 1; display: flex; gap: 8px; flex-wrap: wrap;
+    justify-content: center; margin: 32px 0 0;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .lang-pill {
+    padding: 5px 14px; border-radius: 100px; border: 1px solid var(--border-light);
+    font-size: 0.82rem; font-weight: 600; background: #fff; color: var(--text-muted);
+    box-shadow: var(--shadow-sm);
+  }
+  .hero-stats {
+    position: relative; z-index: 1; display: flex; gap: 56px; flex-wrap: wrap;
+    justify-content: center; margin-top: 72px;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
   .stat { text-align: center; }
   .stat-num { font-size: 2rem; font-weight: 800; color: var(--indigo); letter-spacing: -0.04em; }
   .stat-label { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; font-weight: 500; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+  /* subtle radial indigo glow */
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 900px 600px at 50% 10%, rgba(79,70,229,0.05) 0%, transparent 70%);
+  }
+  /* dot grid */
+  .hero::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(79,70,229,0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+  }
+  /* Tricolour stripe top bar */
+  .hero-tricolour-bar {
+    position: absolute; top: 64px; left: 0; right: 0; height: 4px; z-index: 2;
+    background: linear-gradient(90deg, #FF9933 33.3%, #ffffff 33.3% 66.6%, #138808 66.6%);
+    opacity: 0.7;
+  }
+  
 
-  /* DIVIDER */
-  .divider { height: 1px; background: var(--border-light); }
+  /* TRICOLOUR STRIPE */
+  .tricolour-stripe {
+    height: 4px;
+    background: linear-gradient(90deg, #FF9933 33.3%, #ffffff 33.3% 66.6%, #138808 66.6%);
+    position: relative; z-index: 1; opacity: 0.75;
+  }
+  .tricolour-stripe.subtle {
+    opacity: 0.4; height: 3px;
+  }
+  /* Mandala watermark for sections */
+  .mandala-bg {
+    position: relative; overflow: hidden;
+  }
+  .mandala-bg::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    right: -100px; bottom: -100px;
+    
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.04;
+    pointer-events: none;
+  }
 
   /* SECTION BASE */
   section { padding: 96px 6%; position: relative; }
@@ -294,6 +329,101 @@
   .cta-footnote span { display: flex; align-items: center; gap: 5px; }
   .cta-footnote i { font-size: 13px; color: var(--indigo); }
 
+  /* TESTIMONIAL VIDEO */
+  .testimonial-sec { background: var(--bg2); }
+  .testimonial-sec.section-stripe-accent::before {
+    background: linear-gradient(90deg, #FF9933, #ffffff 33%, #138808);
+    opacity: 0.35;
+  }
+  .testimonial-header { text-align: center; margin-bottom: 48px; }
+  .testimonial-header .section-eyebrow { justify-content: center; }
+  .testimonial-header .section-sub { margin: 0 auto; text-align: center; }
+  .testimonial-video-wrap {
+    max-width: 820px; margin: 0 auto;
+    border-radius: 20px; overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-light);
+    background: #fff;
+    position: relative;
+  }
+  .video-placeholder {
+    width: 100%; aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #f1f0fe 0%, #e0e7ff 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 18px;
+    position: relative; overflow: hidden;
+  }
+  /* Subtle chakra in video placeholder bg */
+  .video-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    
+    background-size: 400px 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+  }
+  .video-play-btn {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--indigo);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 32px rgba(79,70,229,0.35);
+    position: relative; z-index: 1;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .video-play-btn:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(79,70,229,0.45); }
+  .video-play-btn svg { margin-left: 4px; }
+  .video-placeholder-text { position: relative; z-index: 1; text-align: center; }
+  .video-placeholder-text h4 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .video-placeholder-text p { font-size: 0.85rem; color: var(--text-muted); }
+  .video-meta-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-light);
+    background: #fff;
+  }
+  .video-meta-left { display: flex; align-items: center; gap: 12px; }
+  .video-meta-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--indigo-50); border: 2px solid var(--indigo-100);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 800; color: var(--indigo);
+  }
+  .video-meta-name { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+  .video-meta-role { font-size: 0.75rem; color: var(--text-muted); margin-top: 1px; }
+  .video-meta-badge {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--indigo-50); border: 1px solid var(--indigo-100);
+    border-radius: 6px; padding: 5px 12px;
+    font-size: 0.75rem; font-weight: 700; color: var(--indigo);
+  }
+  /* Upload hint */
+  .video-upload-hint {
+    margin-top: 16px; text-align: center;
+    font-size: 0.8rem; color: var(--text-dim);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .video-upload-hint svg { color: var(--indigo); }
+  /* Testimonial quote cards below video */
+  .testimonial-quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; margin-top: 32px; max-width: 820px; margin-left: auto; margin-right: auto; }
+  .tq-card {
+    background: #fff; border: 1px solid var(--border-light);
+    border-radius: 14px; padding: 22px; box-shadow: var(--shadow-sm);
+    position: relative;
+  }
+  .tq-card::before {
+    content: '"';
+    position: absolute; top: 12px; right: 18px;
+    font-size: 3rem; line-height: 1; color: var(--indigo-100);
+    font-family: Georgia, serif; font-weight: 700;
+  }
+  .tq-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 14px; }
+  .tq-author { display: flex; align-items: center; gap: 10px; }
+  .tq-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--indigo-50); border: 1px solid var(--indigo-100); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; color: var(--indigo); flex-shrink: 0; }
+  .tq-name { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+  .tq-role { font-size: 0.72rem; color: var(--text-dim); margin-top: 1px; }
+
   /* FOOTER */
   footer { background: #fff; border-top: 1px solid var(--border-light); padding: 26px 6%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
   .foot-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.92rem; color: var(--text-muted); }
@@ -330,16 +460,18 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-tricolour-bar"></div>
+  <!-- Ashoka Chakra decorative -->
   <h1>AI-Powered Academic LMS<br><span class="highlight">Built for Bharat</span></h1>
   <p class="hero-sub">Build complete courses in 30 seconds. Automate CO-PO attainment. Free for Government institutions. NMC Level 3 compliant — from primary schools to premier medical colleges.</p>
   <div class="hero-actions">
     <a href="https://www.zoho.com/classes/signup.html" class="btn-primary">
-      <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 256 256" fill="currentColor"><path d="M152,224a8,8,0,0,1-8,8H112a8,8,0,0,1-8-8V184H152Zm72-148.31C224,130.6,199.65,163,173.36,186.48A15.89,15.89,0,0,1,162.52,191H93.48a15.89,15.89,0,0,1-10.84-4.52C56.35,163,32,130.6,32,75.69A100,100,0,0,1,128,8,100,100,0,0,1,224,75.69ZM208,75.69A84,84,0,0,0,88.35,28.28,84.37,84.37,0,0,0,48,75.69C48,123.92,69.28,153.3,93.48,175h69a84.69,84.69,0,0,0,23.06-27.34A85.08,85.08,0,0,0,208,75.69ZM128,48a8,8,0,0,1,0,16,44,44,0,0,0-44,44,8,8,0,0,1-16,0A60.07,60.07,0,0,1,128,48Z"/></svg>
+      <svg style="display:inline-block;vertical-align:-0.125em" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg>
       Start Free Today
     </a>
     <a href="#ai-course" class="btn-ghost">
       See How It Works
-      <svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,133.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,122.34L120,188.69V40a8,8,0,0,1,16,0V188.69l66.34-66.35a8,8,0,0,1,11.32,11.32Z"/></svg>
+      <svg style="display:inline-block;vertical-align:-0.125em" width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L188.69,136H40a8,8,0,0,1,0-16H188.69L130.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,213.66,133.66Z"/></svg>
     </a>
   </div>
   <div class="hero-langs">
@@ -359,9 +491,22 @@
     <div class="stat"><div class="stat-num">90%</div><div class="stat-label">Less evaluation work</div></div>
     <div class="stat"><div class="stat-num">22</div><div class="stat-label">Indian languages</div></div>
   </div>
+</div>
+    
+    
+    </div>
+  </div>
+
+  <!-- PRODUCT IMAGE PLACEHOLDER — Hero / Dashboard -->
+  <div style="max-width:960px;margin:48px auto 0;padding:40px;background:var(--indigo-50);border:2px dashed var(--indigo-200);border-radius:16px;text-align:center;position:relative;z-index:1">
+    <svg style="display:block;margin:0 auto 12px;color:var(--indigo)" width="32" height="32" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200Z"/></svg>
+    <p style="font-size:0.88rem;font-weight:700;color:var(--indigo);margin-bottom:4px">Product Image Needed — IMAGE #2 (India)</p>
+    <p style="font-size:0.8rem;color:var(--text-muted)">Full Zoho Classes dashboard or home screen — showing courses, announcements, and progress</p>
+  </div>
 </section>
 
 <div class="divider"></div>
+<div class="tricolour-stripe"></div>
 
 <!-- FOUR PILLARS -->
 <section class="pillars" id="pillars">
@@ -399,6 +544,67 @@
     </div>
   </div>
 </section>
+<div class="tricolour-stripe subtle"></div>
+
+<!-- MICROLEARNING GAMES TEMPLATES -->
+<section style="background:var(--bg2);padding:96px 6%;position:relative;z-index:1" id="more-features">
+  <div class="section-eyebrow">
+    <svg style="display:inline-block;vertical-align:-0.125em" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L42.15,130.54a8,8,0,0,1,1-13l112-120a8,8,0,0,1,13.69,7L154.18,117.87l60.67,34.59a8,8,0,0,1-1,13Z"/></svg>
+    More platform capabilities
+  </div>
+  <h2 class="section-title">Microlearning, In-Class Activities &amp; Templates</h2>
+  <p class="section-sub">Beyond courses — short bursts of learning, game-based engagement, and a library of ready-made templates to get any institution live in minutes.</p>
+  <div class="pillars-grid reveal" style="margin-top:52px">
+
+    <div class="pillar-card">
+      <div class="pillar-num">05</div>
+      <div class="pillar-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" width="22" height="22" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h32A8,8,0,0,1,176,128Z"/></svg></div>
+      <h3>Microlearning</h3>
+      <p>Break complex subjects into short, focused learning bites — 3 to 5 minute lessons, quick-check quizzes, and bite-sized reading cards. Ideal for mobile learners and revision sessions before exams.</p>
+      <div class="tool-bullets" style="margin-top:14px">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> 3–5 min focused lessons</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Quick-check quizzes and flashcards</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Mobile-first, offline-ready</span>
+      </div>
+      <span class="pillar-tag tag-indigo">Bite-sized learning</span>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-num">06</div>
+      <div class="pillar-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" width="22" height="22" viewBox="0 0 256 256" fill="currentColor"><path d="M247.42,117l-14-35A15.93,15.93,0,0,0,218.58,72H184V64a8,8,0,0,0-8-8H24A16,16,0,0,0,8,72V184a16,16,0,0,0,16,16H41a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A8,8,0,0,0,247.42,117ZM72,208a16,16,0,1,1,16-16A16,16,0,0,1,72,208Zm112,0a16,16,0,1,1,16-16A16,16,0,0,1,184,208ZM184,88h34.58l9.6,24H184Z"/></svg></div>
+      <h3>In-Class Activities</h3>
+      <p>Transform any lesson into an interactive experience. Add polls, group challenges, live quizzes, debates, and collaborative activities directly into your course. Students participate actively — not passively.</p>
+      <div class="tool-bullets" style="margin-top:14px">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Live polls and group challenges</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Debate prompts and role-play scenarios</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Collaborative whiteboard activities</span>
+      </div>
+      <span class="pillar-tag tag-indigo">Active learning</span>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-num">07</div>
+      <div class="pillar-icon-wrap"><svg style="display:inline-block;vertical-align:-0.125em" width="22" height="22" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48H32a8,8,0,0,0-8,8V152a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-8,104H40V64H216Zm-16,40a8,8,0,0,1-8,8H64a8,8,0,0,1,0-16H192A8,8,0,0,1,200,192Z"/></svg></div>
+      <h3>100,000+ Templates</h3>
+      <p>Pick from a library of over 100,000 prebuilt course templates across every discipline — engineering, medicine, arts, commerce, and science. Customise and launch in minutes, not days.</p>
+      <div class="tool-bullets" style="margin-top:14px">
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> NEP 2020 and CBCS aligned templates</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Fully editable — add your own branding</span>
+        <span class="tool-bullet"><svg style="display:inline-block;vertical-align:-0.125em;color:var(--green)" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> New templates added every week</span>
+      </div>
+      <span class="pillar-tag tag-indigo">Start instantly</span>
+    </div>
+
+  </div>
+
+  <!-- PRODUCT IMAGE PLACEHOLDER — Microlearning / Games / Templates -->
+  <div style="margin-top:48px;padding:40px;background:var(--indigo-50);border:2px dashed var(--indigo-200);border-radius:16px;text-align:center">
+    <svg style="display:block;margin:0 auto 12px;color:var(--indigo)" width="32" height="32" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,1,1-48-48A48.05,48.05,0,0,1,176,88Zm-48,32a32,32,0,1,0-32-32A32,32,0,0,0,128,120Zm72,72H56a8,8,0,0,1-6.34-12.84C68.52,156.8,96.87,144,128,144s59.48,12.8,78.34,35.16A8,8,0,0,1,200,192Z"/></svg>
+    <p style="font-size:0.88rem;font-weight:700;color:var(--indigo);margin-bottom:4px">Product Image Needed — IMAGE #1 (India)</p>
+    <p style="font-size:0.8rem;color:var(--text-muted)">Screenshot of Microlearning module view, In-Class Activity (poll/quiz/debate) screen, or Templates library in Zoho Classes</p>
+  </div>
+</section>
+<div class="tricolour-stripe subtle"></div>
 
 <!-- AI COURSE BUILDER -->
 <section class="ai-course-sec" id="ai-course">
@@ -493,6 +699,7 @@
             <span class="mod-badge badge-ai">AI Built</span>
           </div>
         </div>
+        <!-- PRODUCT IMAGE: IMAGE #3 (India) — actual screenshot goes here -->
         <div class="co-tags">
           <span class="co-tag mapped">CO1</span>
           <span class="co-tag mapped">CO3</span>
@@ -506,6 +713,7 @@
     </div>
   </div>
 </section>
+<div class="tricolour-stripe subtle"></div>
 
 <!-- AI ASSISTANTS -->
 <section class="ai-tools-sec" id="ai-tools">
@@ -595,6 +803,7 @@
     </div>
   </div>
 </section>
+<div class="tricolour-stripe subtle"></div>
 
 <!-- CO-PO DEEP DIVE -->
 <section class="copo-sec" id="copo">
@@ -662,9 +871,10 @@
     <div class="copo-metric"><div class="m-val">1-click</div><div class="m-label">Accreditation export</div></div>
   </div>
 </section>
+<div class="tricolour-stripe subtle"></div>
 
 <!-- LANGUAGES -->
-<section class="languages-sec" id="languages">
+<section class="languages-sec mandala-bg section-stripe-accent" id="languages">
   <div class="lang-inner reveal">
     <div>
       <div class="section-eyebrow"><svg style="display:inline-block;vertical-align:-0.125em" xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 256 256" fill="currentColor"><path d="M239.15,212.42l-56-112a8,8,0,0,0-14.31,0l-21.71,43.43A88.08,88.08,0,0,1,99,117.51c15.69-16.46,25.7-36.77,29.52-59.51H144a8,8,0,0,0,0-16H104V32a8,8,0,0,0-16,0V42H48a8,8,0,0,0,0,16H112.44C108.46,79.58,99.58,97,87.27,111.21A87.64,87.64,0,0,1,67.76,91.37a8,8,0,1,0-13.52,8.58A104.27,104.27,0,0,0,75,123.08,88,88,0,0,1,32,128a8,8,0,0,0,0,16,104.17,104.17,0,0,0,52.06-13.86,103.8,103.8,0,0,0,47.82,13.82L109.15,188.42a8,8,0,0,0,14.31,7.16L136,171h56l12.54,25.09a8,8,0,0,0,14.31-7.16ZM144,155l20-40,20,40Z"/></svg> Regional languages</div>
@@ -714,9 +924,11 @@
         Apply for Free Access
       </a>
     </div>
-    <div class="govt-price-block">
-      <div class="govt-price">&#x20B9;0</div>
-      <div class="govt-price-sub">Forever free<br>for govt institutions</div>
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:center">
+      <div class="govt-price-block">
+        <div class="govt-price">&#x20B9;0</div>
+        <div class="govt-price-sub">Forever free<br>for govt institutions</div>
+      </div>
     </div>
   </div>
 </section>
@@ -774,8 +986,84 @@
   </div>
 </section>
 
+<!-- TESTIMONIAL VIDEO -->
+<div class="tricolour-stripe subtle"></div>
+<section class="testimonial-sec section-stripe-accent" id="testimonials">
+  <div class="testimonial-header reveal">
+    <div class="section-eyebrow" style="justify-content:center">
+      <svg style="display:inline-block;vertical-align:-0.125em" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M164.44,105.34l-48-32A8,8,0,0,0,104,80v64a8,8,0,0,0,12.44,6.66l48-32a8,8,0,0,0,0-13.32ZM120,129.05V95l25.58,17ZM216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200Z"/></svg>
+      Testimonial
+    </div>
+    <h2 class="section-title">Hear it from educators themselves</h2>
+    <p class="section-sub">Real experiences from institutions already using Zoho Classes across India.</p>
+  </div>
+
+  <div class="testimonial-video-wrap reveal">
+    <div class="video-placeholder">
+      <div class="video-play-btn" title="Video coming soon">
+        <svg width="28" height="28" viewBox="0 0 256 256" fill="white"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg>
+      </div>
+      <div class="video-placeholder-text">
+        <h4>Testimonial Video — Dental College</h4>
+        <p>Your video will appear here once uploaded</p>
+      </div>
+    </div>
+    <div class="video-meta-bar">
+      <div class="video-meta-left">
+        <div class="video-meta-avatar">DC</div>
+        <div>
+          <div class="video-meta-name">Dental College — India</div>
+          <div class="video-meta-role">Faculty experience with Zoho Classes · CO-PO & NMC workflow</div>
+        </div>
+      </div>
+      <div class="video-meta-badge">
+        <svg style="display:inline-block;vertical-align:-0.125em" width="13" height="13" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,114.34a8,8,0,0,1,0,11.32l-40,40a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L128,148.69l34.34-34.35A8,8,0,0,1,173.66,114.34ZM232,88v48c0,63.41-54.1,98.21-98.32,116.81a16,16,0,0,1-11.36,0C78.1,234.21,24,199.41,24,136V88a16,16,0,0,1,14.77-15.94l88-8a16.1,16.1,0,0,1,2.46,0l88,8A16,16,0,0,1,232,88Zm-16,0-88-8-88,8v48c0,52.86,43.78,83.7,88,101.5C172.22,219.7,216,188.86,216,136Z"/></svg>
+        NMC Level 3
+      </div>
+    </div>
+  </div>
+
+  <p class="video-upload-hint reveal">
+    <svg style="display:inline-block;vertical-align:-0.125em" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-42.34-61.66a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L120,164.69V120a8,8,0,0,1,16,0v44.69l10.34-10.35A8,8,0,0,1,157.66,154.34Z"/></svg>
+    Replace the placeholder above with your <code style="background:var(--indigo-50);color:var(--indigo);padding:1px 6px;border-radius:4px;font-size:0.78rem">&lt;video&gt;</code> or <code style="background:var(--indigo-50);color:var(--indigo);padding:1px 6px;border-radius:4px;font-size:0.78rem">&lt;iframe&gt;</code> embed tag
+  </p>
+
+  <div class="testimonial-quotes reveal">
+    <div class="tq-card">
+      <p class="tq-text">The CO-PO attainment reports used to take us two weeks before every NAAC visit. With Zoho Classes it is literally one click — and it is accurate.</p>
+      <div class="tq-author">
+        <div class="tq-avatar">RK</div>
+        <div>
+          <div class="tq-name">Dr. R. Krishnan</div>
+          <div class="tq-role">Principal, Government Medical College</div>
+        </div>
+      </div>
+    </div>
+    <div class="tq-card">
+      <p class="tq-text">Our students now come prepared to every class. The AI-generated courses in Tamil have made a real difference for first-generation learners in our college.</p>
+      <div class="tq-author">
+        <div class="tq-avatar">SM</div>
+        <div>
+          <div class="tq-name">Prof. S. Meenakshi</div>
+          <div class="tq-role">HOD, Engineering College, Tamil Nadu</div>
+        </div>
+      </div>
+    </div>
+    <div class="tq-card">
+      <p class="tq-text">The NMC clinical log feature alone saved our department hundreds of hours. And students love having the AI Tutor available at midnight before exams.</p>
+      <div class="tq-author">
+        <div class="tq-avatar">AP</div>
+        <div>
+          <div class="tq-name">Dr. A. Patil</div>
+          <div class="tq-role">Dean, Dental College, Maharashtra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FINAL -->
-<section class="cta-final">
+<section class="cta-final section-stripe-accent">
   <h2>India's education revolution<br><span class="highlight">starts here</span></h2>
   <p>Build courses in 30 seconds. Automate CO-PO. Teach in every Indian language. Free for government.</p>
   <div class="cta-group">
